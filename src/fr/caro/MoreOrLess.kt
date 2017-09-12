@@ -7,26 +7,34 @@ import java.util.*
  */
 
 fun main(args: Array<String>) {
-    val min = 0
-    val max = 100
-    var nbAttempts = 0
-    val random = SplittableRandom()
-    val reader = Scanner(System.`in`)
-    val goal = random.nextInt(min, max)
-    var userGuess: Int
 
-    computerSays("I chose a number between $min and $max")
+    val goal = chooseANumber()
+    var nbAttempts = 0
     do {
         nbAttempts++
-        computerSays("What's your guess?")
-        userGuess = reader.nextInt()
-        if (userGuess > goal) computerSays("less !")
-        else if (userGuess < goal) computerSays("more !")
-    } while(userGuess != goal)
+        "What's your guess?".outputAsComputer()
+    } while(tryingToGuess(goal) != goal)
 
-    computerSays("Congratulation ! You found in $nbAttempts attemps.")
+    "Congratulation ! You found in $nbAttempts attemps.".outputAsComputer()
 }
 
-fun computerSays(text: String) {
-    println("Computer : " + text)
+fun chooseANumber(min: Int = 0, max: Int = 100): Int {
+    val random = SplittableRandom()
+    val goal = random.nextInt(min, max)
+    "I chose a number between $min and $max".outputAsComputer()
+    return goal
+}
+
+fun tryingToGuess(goal: Int) : Int {
+    val reader = Scanner(System.`in`)
+    val userGuess = reader.nextInt()
+    when {
+        userGuess > goal -> "less !".outputAsComputer()
+        userGuess < goal -> "more !".outputAsComputer()
+    }
+    return userGuess
+}
+
+fun String.outputAsComputer() {
+    println("Computer : " + this)
 }
