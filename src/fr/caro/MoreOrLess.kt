@@ -41,7 +41,7 @@ fun tryingToGuess(goal: Int) : Int? {
         }
         return userGuess
     } catch (e: InputMismatchException) {
-        "That's not even a integer !".outputAsComputer()
+        "That's not even an integer !".outputAsComputer()
         return null
     }
 }
