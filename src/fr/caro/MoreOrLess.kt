@@ -31,14 +31,19 @@ fun randomNumberPicker(min: Int = 0, max: Int = 100): Int {
     return goal
 }
 
-fun tryingToGuess(goal: Int) : Int {
+fun tryingToGuess(goal: Int) : Int? {
     val reader = Scanner(System.`in`)
-    val userGuess = reader.nextInt()
-    when {
-        userGuess > goal -> "less !".outputAsComputer()
-        userGuess < goal -> "more !".outputAsComputer()
+    try {
+        val userGuess = reader.nextInt()
+        when {
+            userGuess > goal -> "less !".outputAsComputer()
+            userGuess < goal -> "more !".outputAsComputer()
+        }
+        return userGuess
+    } catch (e: InputMismatchException) {
+        "That's not even a integer !".outputAsComputer()
+        return null
     }
-    return userGuess
 }
 
 fun getMinMax(args: Array<String>) : Pair<Int, Int>? {
